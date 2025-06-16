@@ -1,16 +1,26 @@
 # caesar_cipher.py
 import sys
+import os
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
-from PyQt5.uic import loadUi # Giả định dựa trên ngữ cảnh và phần thấy được
+from PyQt5 import uic
 import requests
 
 class MyApp(QMainWindow):
     def __init__(self):
         super().__init__()
-        # Giả định tên file .ui là "main.ui" dựa trên thực tế phổ biến
-        self.ui = loadUi("./ui/caesar.ui", self)
+        # Lấy đường dẫn tuyệt đối đến thư mục chứa file hiện tại
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        # Tạo đường dẫn đến file UI
+        ui_file = os.path.join(current_dir, "ui", "caesar.ui")
+        
+        # Kiểm tra xem file UI có tồn tại không
+        if not os.path.exists(ui_file):
+            raise FileNotFoundError(f"Không tìm thấy file UI tại: {ui_file}")
+            
+        self.ui = uic.loadUi(ui_file, self)
         self.ui.pushButton.clicked.connect(self.call_api_encrypt)
         self.ui.pushButton_2.clicked.connect(self.call_api_decrypt)
+        self.show()
 
     def call_api_encrypt(self):
         url = "http://127.0.0.1:5000/api/caesar/encrypt"
@@ -64,5 +74,4 @@ class MyApp(QMainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MyApp()
-    window.show()
     sys.exit(app.exec_())

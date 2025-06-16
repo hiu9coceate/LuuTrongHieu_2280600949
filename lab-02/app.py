@@ -3,6 +3,8 @@ from cipher.caesar import CaesarCipher
 from cipher.vigenere import VigenereCipher
 from cipher.railfence import RailFenceCipher
 from cipher.playfair import PlayFairCipher
+import subprocess
+import os
 
 app = Flask(__name__, template_folder='Templates')
 
@@ -15,7 +17,14 @@ def home():
 #CAESAR
 @app.route("/caesar")
 def caesar():
-    return render_template("caesar.html")
+    caesar_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'lab-03', 'caesar_cipher.py')
+    
+    try:
+        # Sử dụng cmd để giữ cửa sổ mở
+        os.system(f'start cmd /k "python "{caesar_path}""')
+        return "Bấm lùi trang để thử mã hoá khác..."
+    except Exception as e:
+        return f"Error launching application: {str(e)}"
 
 @app.route("/encrypt", methods=["POST"])
 def caesar_encrypt():
@@ -37,7 +46,14 @@ def caesar_decrypt():
 #VIGENERE 
 @app.route("/vigenere")
 def vigenere():
-    return render_template("vigenere.html")
+    caesar_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'lab-03', 'vigenere_cipher.py')
+    
+    try:
+        # Sử dụng cmd để giữ cửa sổ mở
+        os.system(f'start cmd /k "python "{caesar_path}""')
+        return "Bấm lùi trang để thử mã hoá khác..."
+    except Exception as e:
+        return f"Error launching application: {str(e)}"
 
 @app.route("/vigenere/encrypt", methods=["POST"])
 def vigenere_encrypt():
@@ -59,7 +75,14 @@ def vigenere_decrypt():
 #RAILFENCE 
 @app.route("/railfence")
 def railfence():
-    return render_template("railfence.html")
+    caesar_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'lab-03', 'railfence_cipher.py')
+    
+    try:
+        # Sử dụng cmd để giữ cửa sổ mở
+        os.system(f'start cmd /k "python "{caesar_path}""')
+        return "Bấm lùi trang để thử mã hoá khác..."
+    except Exception as e:
+        return f"Error launching application: {str(e)}"
 
 @app.route("/railfence/encrypt", methods=["POST"])
 def railfence_encrypt():
@@ -81,7 +104,14 @@ def railfence_decrypt():
 #  PLAYFAIR
 @app.route("/playfair")
 def playfair():
-    return render_template("playfair.html")
+    caesar_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'lab-03', 'playfair_cipher.py')
+    
+    try:
+        # Sử dụng cmd để giữ cửa sổ mở
+        os.system(f'start cmd /k "python "{caesar_path}""')
+        return "Bấm lùi trang để thử mã hoá khác"
+    except Exception as e:
+        return f"Error launching application: {str(e)}"
 
 @app.route("/playfair/encrypt", methods=["POST"])
 def playfair_encrypt():
